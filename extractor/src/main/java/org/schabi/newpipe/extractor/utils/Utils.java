@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
+import java.io.UnsupportedEncodingException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -42,9 +42,22 @@ public final class Utils {
      * @param url The URL to be decoded.
      * @return The decoded URL.
      */
-    public static String decodeUrlUtf8(final String url) {
-        return URLDecoder.decode(url, StandardCharsets.UTF_8);
+
+
+public static String decodeUrlUtf8(String url) {
+    if (url == null) return null;
+
+    try {
+        return URLDecoder.decode(url, StandardCharsets.UTF_8.name());
+    } catch (UnsupportedEncodingException e) {
+        return url;
+    } catch (IllegalArgumentException e) {
+        return url;
     }
+}
+
+
+
 
     /**
      * Remove all non-digit characters from a string.
